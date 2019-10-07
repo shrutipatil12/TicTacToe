@@ -1,41 +1,25 @@
 package com.thoughtworks;
 
-public class Board {
-    int arr[][];
-    Player playerOne;
-    Player playerTwo;
+import java.util.ArrayList;
 
-    Board(int[][] arr, Player playerOne, Player playerTwo) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-        this.arr = arr;
+public class Board {
+
+    private int[][] playerMoves;
+    private Player player;
+
+    private ArrayList<int[][]> winningMoves = new ArrayList<>();
+
+    Board(int[][] playerMoves, Player player) {
+        int[][] moves = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}};
+        winningMoves.add(moves);
+        this.player = player;
+        this.playerMoves = playerMoves;
+
     }
 
     public Player winner() {
-        if ((arr[0][0] == 2 && arr[0][1] == 2 && arr[0][2] == 2) ||
-                (arr[1][0] == 2 && arr[1][1] == 2 && arr[1][2] == 2) ||
-                (arr[2][0] == 2 && arr[2][1] == 2 && arr[2][2] == 2) ||     // rows
-
-                ((arr[0][0] == 2 && arr[1][0] == 2 && arr[2][0] == 2) ||
-                        (arr[0][1] == 2 && arr[1][1] == 2 && arr[2][1] == 2) ||
-                        (arr[0][2] == 2 && arr[1][2] == 2 && arr[2][2] == 2)) ||   // column
-
-                ((arr[0][0] == 2 && arr[1][1] == 2 && arr[2][2] == 2) ||
-                        (arr[0][2] == 2 && arr[1][1] == 2 && arr[2][0] == 2)))    // diagonal
-        {
-            return playerTwo;
-        }
-        if ((arr[0][0] == 1 && arr[0][1] == 1 && arr[0][2] == 1) ||
-                (arr[1][0] == 1 && arr[1][1] == 1 && arr[1][2] == 1) ||
-                (arr[2][0] == 1 && arr[2][1] == 1 && arr[2][2] == 1) ||
-
-                ((arr[0][0] == 1 && arr[1][0] == 1 && arr[2][0] == 1) ||
-                        (arr[0][1] == 1 && arr[1][1] == 1 && arr[2][1] == 1) ||
-                        (arr[0][2] == 1 && arr[1][2] == 1 && arr[2][2] == 1)) ||
-
-                ((arr[0][0] == 1 && arr[1][1] == 1 && arr[2][2] == 1) ||
-                        (arr[0][2] == 1 && arr[1][1] == 1 && arr[2][0] == 1))) {
-            return playerOne;
+        if (winningMoves.contains(playerMoves)) {
+            return player;
         }
         return null;
     }
