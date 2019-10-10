@@ -29,17 +29,11 @@ public class Board {
         this.playerTwo = playerTwo;
     }
 
-    public void move(int positionPlayedAt, Player player) throws PositionAlreadyOccupied {
-
+    public void move(int positionPlayedAt, Player player) throws PositionAlreadyOccupiedException {
         if (isPositionAlreadyOccupied(positionPlayedAt)) {
-            throw new PositionAlreadyOccupied();
-
-        } else if (player.equals(playerOne)) {
-            playerOne.move(positionPlayedAt);
+            throw new PositionAlreadyOccupiedException();
         }
-        if (player.equals(playerTwo)) {
-            playerTwo.move(positionPlayedAt);
-        }
+        player.move(positionPlayedAt);
     }
 
     private boolean isPositionAlreadyOccupied(int positionPlayedAt) {
@@ -47,11 +41,12 @@ public class Board {
     }
 
     public Player winner() {
-
         if (playerOne.doseContain(winningMoves)) {
+            System.out.println("PlayerOne won");
             return playerOne;
         }
         if (playerTwo.doseContain(winningMoves)) {
+            System.out.println("PlayerTwo won");
             return playerTwo;
         }
         return null;
