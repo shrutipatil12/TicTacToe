@@ -7,7 +7,7 @@ public class Board {
     private Player playerOne;
     private Player playerTwo;
 
-    private List<List<Integer>> winningMoves;
+    private final List<List<Integer>> winningMoves;
 
     Board(Player playerOne, Player playerTwo) {
         winningMoves = Arrays.asList(
@@ -29,11 +29,16 @@ public class Board {
         this.playerTwo = playerTwo;
     }
 
-    public void move(int positionPlayedAt, Player player) throws PositionAlreadyOccupiedException {
+    public void move(int positionPlayedAt) throws PositionAlreadyOccupiedException {
         if (isPositionAlreadyOccupied(positionPlayedAt)) {
             throw new PositionAlreadyOccupiedException();
         }
-        player.move(positionPlayedAt);
+
+        playerOne.move(positionPlayedAt);
+        Player tempPlayer;
+        tempPlayer = playerOne;
+        playerOne = playerTwo;
+        playerTwo = tempPlayer;
     }
 
     private boolean isPositionAlreadyOccupied(int positionPlayedAt) {
@@ -41,12 +46,10 @@ public class Board {
     }
 
     public Player winner() {
-        if (playerOne.doseContain(winningMoves)) {
-            System.out.println("PlayerOne won");
+        if (playerOne.doesContain(winningMoves)) {
             return playerOne;
         }
-        if (playerTwo.doseContain(winningMoves)) {
-            System.out.println("PlayerTwo won");
+        if (playerTwo.doesContain(winningMoves)) {
             return playerTwo;
         }
         return null;

@@ -15,7 +15,8 @@ class Player {
         return madeMoves.contains(positionPlayedAt);
     }
 
-    boolean doseContain(List<List<Integer>> someMoves) {
+    boolean doesContain(List<List<Integer>> someMoves) {
         return someMoves.contains(madeMoves);
     }
+
 }

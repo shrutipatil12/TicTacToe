@@ -1,10 +1,8 @@
 package com.thoughtworks;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
 
@@ -35,19 +33,19 @@ class BoardTest {
         Player playerTwo = new Player();
 
         Board board = new Board(playerOne, playerTwo);
-        assertDoesNotThrow(() -> board.move(2, playerOne));
+        assertDoesNotThrow(() -> board.move(2));
     }
 
     @Test
-    void givenAlreadyPlayedMove_WhenPlay_ThenItShouldNotAbleToPlay() {
+    void givenAlreadyPlayedMove_WhenPlay_ThenItShouldNotAbleToPlay() throws PositionAlreadyOccupiedException {
 
         Player playerOne = new Player();
         Player playerTwo = new Player();
 
         Board board = new Board(playerOne, playerTwo);
-        playerOne.move(2);
-        Assertions.assertThrows(PositionAlreadyOccupiedException.class, () -> {
-            board.move(2, playerOne);
+        board.move(2);
+        assertThrows(PositionAlreadyOccupiedException.class, () -> {
+            board.move(2);
         });
     }
 }
