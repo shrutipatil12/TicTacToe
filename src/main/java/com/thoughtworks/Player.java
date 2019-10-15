@@ -18,5 +18,4 @@ class Player {
     boolean doesContain(List<List<Integer>> someMoves) {
         return someMoves.contains(madeMoves);
     }
-
 }

@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Board {
-    private Player playerOne;
-    private Player playerTwo;
+    private final Player playerOne;
+    private final Player playerTwo;
+    private Player currentPlayer;
 
     private final List<List<Integer>> winningMoves;
 
@@ -27,18 +28,28 @@ public class Board {
 
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
+        this.currentPlayer = playerOne;
     }
+
+
+    private void swap() {
+        if (currentPlayer.equals(playerOne)) {
+            currentPlayer = playerTwo;
+
+
+        } else if (currentPlayer.equals(playerTwo)) {
+            currentPlayer = playerOne;
+
+        }
+    }
+
 
     public void move(int positionPlayedAt) throws PositionAlreadyOccupiedException {
         if (isPositionAlreadyOccupied(positionPlayedAt)) {
             throw new PositionAlreadyOccupiedException();
         }
-
-        playerOne.move(positionPlayedAt);
-        Player tempPlayer;
-        tempPlayer = playerOne;
-        playerOne = playerTwo;
-        playerTwo = tempPlayer;
+        currentPlayer.move(positionPlayedAt);
+        swap();
     }
 
     private boolean isPositionAlreadyOccupied(int positionPlayedAt) {
